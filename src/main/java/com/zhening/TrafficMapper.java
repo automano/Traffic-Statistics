@@ -20,6 +20,12 @@ public class TrafficMapper extends Mapper<LongWritable, Text, Text, TrafficBean>
         // 切分字段
         String[] fields = data.split("\t");
         // 抓取手机号
-
+        phoneNumber.set(fields[1]);
+        // 抓取上下行流量
+        long upstreamTraffic = Long.parseLong(fields[fields.length-3]);
+        long downstreamTraffic = Long.parseLong(fields[fields.length-2]);
+        traffic.set(upstreamTraffic,downstreamTraffic);
+        // 写入content
+        context.write(phoneNumber,traffic);
     }
 }

@@ -32,6 +32,12 @@ public class TrafficBean implements Writable {
         this.totalTraffic = upstreamTraffic + downstreamTraffic;
     }
 
+    public void set(long upstreamTraffic, long downstreamTraffic) {
+        this.upstreamTraffic = upstreamTraffic;
+        this.downstreamTraffic = downstreamTraffic;
+        this.totalTraffic = upstreamTraffic + downstreamTraffic;
+    }
+
     public long getUpstreamTraffic() {
         return upstreamTraffic;
     }
