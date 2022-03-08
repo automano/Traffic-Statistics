@@ -10,8 +10,8 @@ import java.io.IOException;
  * @author Zhening Li
  */
 public class TrafficMapper extends Mapper<LongWritable, Text, Text, TrafficBean> {
-    private Text phoneNumber = new Text();
-    private TrafficBean traffic  = new TrafficBean();
+    private final Text phoneNumber = new Text();
+    private final TrafficBean traffic  = new TrafficBean();
 
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
