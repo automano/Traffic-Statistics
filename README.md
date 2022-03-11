@@ -8,7 +8,7 @@ MapReduce编程：统计每一个手机号耗费的总上行流量、下行流�
 
 #### 数据准备
 
-- 输入数据格式
+- 输入数据格式（以TAB分割，制表位\t）
 
     时间戳、电话号码、基站的物理地址、访问网址的 ip、网站域名、数据包、接包数、上行 / 传流量、下行 / 载流量、响应码
 
@@ -20,14 +20,20 @@ MapReduce编程：统计每一个手机号耗费的总上行流量、下行流�
 
 ### 基本思路：
 
-- Map 阶段： 读取一行数据，切分字段。 抽取手机号、上行流量、下行流量。 以手机号为 key，bean 对象为 value 输出，即 context.write(手机号，bean)。 
-- Reduce 阶段： 累加上行流量和下行流量得到总流量。 实现自定义的 bean 来封装流量信息，并将 bean 作为 map 输出的 key 来传输。 MR 程序在处理数据的过程中会对数据排序 (map 输出的 kv 对传输到 reduce 之前，会排序)，排序的依据是 map 输出的 key。 所以，我们如果要实现自己需要的排序规则，则可以考虑将排序因素放到 key 中，让 key 实现接口：WritableComparable。 然后重写 key 的 compareTo 方法。
+- Map 阶段： 
+  - 读取一行数据，切分字段。 
+  - 抽取手机号、上行流量、下行流量。 
+  - 以手机号为 key，bean 对象为 value 输出，即 ```context.write(手机号，bean)```。 
+- Reduce 阶段：
+  - 累加上行流量和下行流量得到总流量。 
+  - 实现自定义的 bean 来封装流量信息，并将 bean 作为 map 输出的 key 来传输。 
+  - MR 程序在处理数据的过程中会对数据排序 (map 输出的 kv 对传输到 reduce 之前，会排序)，排序的依据是 map 输出的 key。 所以，我们如果要实现自己需要的排序规则，则可以考虑将排序因素放到 key 中，让 key 实现接口：WritableComparable。 然后重写 key 的 compareTo 方法。
 
 ### 具体实现
-- 流量类封装 TrafficBean.java
-- Map阶段 TrafficMap.java
-- Reduce阶段 TrafficReduce.java
-- 启动类 TrafficDriver.java
+- 流量类封装 ```TrafficBean.java```
+- Map阶段 ```TrafficMap.java```
+- Reduce阶段 ```TrafficReduce.java```
+- 启动类 ```TrafficDriver.java```
 
 ### 运行结果
 
